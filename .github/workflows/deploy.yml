@@ -1,0 +1,24 @@
+name: Deploy Website to S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AKIAWMRIDBPJ3KBBFJEY }}
+          aws-secret-access-key: ${{ secrets.hVo+wZ1LHopXCagOQEOzKAIwXtbbUWCaRQFx4Iop }}
+          aws-region: ${{ secrets.us-east-1 }}
+
+      - name: Deploy to S3
+        run: aws s3 sync . s3://akash-devops-website --delete
